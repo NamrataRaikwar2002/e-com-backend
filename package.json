@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/NamrataRaikwar2002/e-com-backend#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.8.0"
   }
 }

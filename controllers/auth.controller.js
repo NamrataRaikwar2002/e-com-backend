@@ -18,6 +18,7 @@ const signupUser = async (req, res) => {
             password: CryptoJs.AES.encrypt(password, process.env.SECRET_KEY).toString()
         });
     
+        
         try {
             const user = await User.find({
                 email
@@ -27,13 +28,14 @@ const signupUser = async (req, res) => {
                     message: 'User already exists!'
                 })
             }
-    
+            
             const savedUser = await newUser.save()
             const {
                 password,
                 ...others
             } = savedUser._doc
-            res.status(201).json(others)
+            const token = jwt.sign({userId:savedUser._id}, process.env.JWT_SECRET);
+            res.status(201).json({createdUser:others, token})
         } catch (err) {
             res.status(500).json(err.message)
         }
@@ -56,8 +58,9 @@ const loginUser = async (req, res) => {
             password,
             ...others
         } = user._doc;
+        console.log(others,'asdfasf')
 
-        res.status(200).json({...others, token});
+        res.status(200).json({foundUser:others, token});
     } catch (err) {
         res.status(500).json(err)
     }

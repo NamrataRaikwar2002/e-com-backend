@@ -34,10 +34,11 @@ const addProductsInCart = async (req, res) => {
             const {product} = req.body;
 
             const user = await Cart.findById(userId);
+            
             if(!user){
-                const newCart = new Cart({_id:userId, products:{_id:product._id, quantity:1}})
+                const newCart = new Cart({_id:userId, cart:product})
                 await newCart.save();
-                res.status(200).json({message:"new cart created and product added", newCart})
+                res.status(200).json({message:"new cart created and product added", cart:newCart})
             }
             else{
                 const newProduct ={_id:product._id, quantity:1}

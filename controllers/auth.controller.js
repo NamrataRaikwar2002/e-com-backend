@@ -58,7 +58,6 @@ const loginUser = async (req, res) => {
             password,
             ...others
         } = user._doc;
-        console.log(others,'asdfasf')
 
         res.status(200).json({foundUser:others, token});
     } catch (err) {
